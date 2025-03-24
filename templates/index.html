@@ -1,20 +1,90 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Controlla la tua pianta</title>
-  </head>
-  <body>
-    <h1>Carica una foto della pianta</h1>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Analisi della Pianta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: "Helvetica Neue", sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        h1 {
+            margin-bottom: 1rem;
+            color: #2e7d32;
+        }
+
+        form {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        input[type="file"] {
+            font-size: 1rem;
+        }
+
+        input[type="submit"] {
+            background-color: #2e7d32;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #1b5e20;
+        }
+
+        .result {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        img {
+            margin-top: 1rem;
+            max-width: 300px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        .confidence {
+            font-size: 1.1rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Controlla lo stato della tua pianta 🌿</h1>
+
     <form method="POST" enctype="multipart/form-data">
-      <input type="file" name="image" accept="image/*">
-      <input type="submit" value="Analizza">
+        <input type="file" name="image" accept="image/*" required>
+        <input type="submit" value="Analizza">
     </form>
 
     {% if prediction %}
-      <h2>Risultato: {{ prediction }}</h2>
-      <p>Confidenza: {{ confidence|round(2) }}</p>
-      <img src="{{ image_url }}" width="300">
+        <div class="result">
+            <h2>Risultato: {{ prediction }}</h2>
+            <p class="confidence">Confidenza: {{ (confidence * 100)|round(1) }}%</p>
+            <img src="{{ image_url }}" alt="Immagine pianta">
+        </div>
     {% endif %}
-  </body>
+
+</body>
 </html>
