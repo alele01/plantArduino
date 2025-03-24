@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Controlla la tua pianta</title>
+  </head>
+  <body>
+    <h1>Carica una foto della pianta</h1>
+    <form method="POST" enctype="multipart/form-data">
+      <input type="file" name="image" accept="image/*">
+      <input type="submit" value="Analizza">
+    </form>
+
+    {% if prediction %}
+      <h2>Risultato: {{ prediction }}</h2>
+      <p>Confidenza: {{ confidence|round(2) }}</p>
+      <img src="{{ image_url }}" width="300">
+    {% endif %}
+  </body>
+</html>
